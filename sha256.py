@@ -33,6 +33,9 @@ def ror(n, rotations=1, width=32):
     n &= mask(width)
     return (n >> rotations) | ((n << (width - rotations)) & mask(width))
 
+def clean(s):
+    # Clean a 4 byte integer, converting it to hex for display
+    return hex(s & 0xffffffff)[2:].strip('L').zfill(0)
 
 def do_hash(m):
     # Initializing hash sectors from the fractional parts of the square roots of the first 8 primes
@@ -115,19 +118,19 @@ def do_hash(m):
 
         h0, h1, h2, h3, h4, h5, h6, h7 = h0 + a, h1 + b, h2 + c, h3 + d, h4 + e, h5 + f, h6 + g, h7 + h
 
-    result = hex(h0)[2:].strip('L').zfill(8) + hex(h1)[2:].strip('L').zfill(8) + hex(h2)[2:].strip('L').zfill(8)\
-             + hex(h3)[2:].strip('L').zfill(8) + hex(h4)[2:].strip('L').zfill(8) + hex(h5)[2:].strip('L').zfill(8) + \
-             hex(h6)[2:].strip('L').zfill(8) + hex(h7)[2:].strip('L').zfill(8)
+    result = clean(h0) + clean(h1) + clean(h2) \
+             + clean(h3) + clean(h4) + clean(h5) + \
+             clean(h6) + clean(h7)
 
     return result
 
 def main():
     if len(sys.argv) < 2:
         inp = raw_input('Enter string to hash: ').strip()
-        print('%s -' % do_hash(inp))
+        print('%s  -' % do_hash(inp))
     else:
         f = open(sys.argv[1], 'r')
-        print('%s %s' % (do_hash(f.read()), sys.argv[1]))
+        print('%s  %s' % (do_hash(f.read()), sys.argv[1]))
         f.close()
 
 if __name__ == '__main__':  main()
