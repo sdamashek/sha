@@ -35,7 +35,7 @@ def ror(n, rotations=1, width=32):
 
 def clean(s):
     # Clean a 4 byte integer, converting it to hex for display
-    return hex(s & 0xffffffff)[2:].strip('L').zfill(0)
+    return hex(s & 0xffffffff)[2:].strip('L').zfill(8)
 
 def do_hash(m):
     # Initializing hash sectors from the fractional parts of the square roots of the first 8 primes
