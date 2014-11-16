@@ -126,7 +126,7 @@ def do_hash(m):
 
 def main():
     if len(sys.argv) < 2:
-        inp = raw_input('Enter string to hash: ').strip()
+        inp = sys.stdin.read()
         print('%s  -' % do_hash(inp))
     else:
         f = open(sys.argv[1], 'r')
