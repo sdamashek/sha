@@ -107,13 +107,13 @@ def do_hash(m):
             maj = (a & b) ^ (a & c) ^ (b & c)
             temp2 = S0 + maj
 
-            h = g & 0xffffffff
-            g = f & 0xffffffff
-            f = e & 0xffffffff
+            h = g
+            g = f
+            f = e
             e = (d + temp1) & 0xffffffff
-            d = c & 0xffffffff
-            c = b & 0xffffffff
-            b = a & 0xffffffff
+            d = c
+            c = b
+            b = a
             a = (temp1 + temp2) & 0xffffffff
 
         h0, h1, h2, h3, h4, h5, h6, h7 = h0 + a, h1 + b, h2 + c, h3 + d, h4 + e, h5 + f, h6 + g, h7 + h
