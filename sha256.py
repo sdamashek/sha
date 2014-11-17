@@ -37,7 +37,10 @@ def ror(n, rotations=1, width=32):
 
 def clean(s):
     # Clean a 4 byte integer, converting it to hex for display
-    return hex(s & 0xffffffff)[2:].strip('L').zfill(8)
+    return hex(mask(s))[2:].strip('L').zfill(8)
+
+def mask(s):
+    return s & 0xffffffff
 
 
 def do_hash(m):
@@ -97,7 +100,7 @@ def do_hash(m):
         for i in range(16, 64):
             s0 = ror(w[i - 15], 7) ^ ror(w[i - 15], 18) ^ (w[i - 15] >> 3)
             s1 = ror(w[i - 2], 17) ^ ror(w[i - 2], 19) ^ (w[i - 2] >> 10)
-            w[i] = (w[i - 16] + s0 + w[i - 7] + s1) & 0xffffffff
+            w[i] = mask(w[i - 16] + s0 + w[i - 7] + s1)
 
         a, b, c, d, e, f, g, h = h0, h1, h2, h3, h4, h5, h6, h7
 
@@ -113,13 +116,13 @@ def do_hash(m):
             h = g
             g = f
             f = e
-            e = (d + temp1) & 0xffffffff
+            e = mask(d + temp1)
             d = c
             c = b
             b = a
-            a = (temp1 + temp2) & 0xffffffff
+            a = mask(temp1 + temp2)
 
-        h0, h1, h2, h3, h4, h5, h6, h7 = h0 + a, h1 + b, h2 + c, h3 + d, h4 + e, h5 + f, h6 + g, h7 + h
+        h0, h1, h2, h3, h4, h5, h6, h7 = mask(h0 + a), mask(h1 + b), mask(h2 + c), mask(h3 + d), mask(h4 + e), mask(h5 + f), mask(h6 + g), mask(h7 + h)
 
     result = clean(h0) + clean(h1) + clean(h2) + clean(h3) + clean(h4) + clean(h5) + clean(h6) + clean(h7)
 
