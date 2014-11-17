@@ -37,10 +37,10 @@ def ror(n, rotations=1, width=64):
 
 def clean(s):
     # Clean a 4 byte integer, converting it to hex for display
-    return hex(mask(s))[2:].strip('L').zfill(16)
+    return hex(domask(s))[2:].strip('L').zfill(16)
 
 
-def mask(s):
+def domask(s):
     return s & 0xffffffffffffffff
 
 
@@ -125,13 +125,13 @@ def do_hash(m):
             h = g
             g = f
             f = e
-            e = mask(d + temp1)
+            e = domask(d + temp1)
             d = c
             c = b
             b = a
-            a = mask(temp1 + temp2)
+            a = domask(temp1 + temp2)
 
-        h0, h1, h2, h3, h4, h5, h6, h7 = h0 + a, h1 + b, h2 + c, h3 + d, h4 + e, h5 + f, h6 + g, h7 + h
+        h0, h1, h2, h3, h4, h5, h6, h7 = domask(h0 + a), domask(h1 + b), domask(h2 + c), domask(h3 + d), domask(h4 + e), domask(h5 + f), domask(h6 + g), domask(h7 + h)
 
     result = clean(h0) + clean(h1) + clean(h2) + clean(h3) + clean(h4) + clean(h5) + clean(h6) + clean(h7)
 
