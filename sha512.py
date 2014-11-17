@@ -131,7 +131,7 @@ def do_hash(m):
             b = a
             a = mask(temp1 + temp2)
 
-        h0, h1, h2, h3, h4, h5, h6, h7 = mask(h0 + a), mask(h1 + b), mask(h2 + c), mask(h3 + d), mask(h4 + e), mask(h5 + f), mask(h6 + g), mask(h7 + h)
+        h0, h1, h2, h3, h4, h5, h6, h7 = h0 + a, h1 + b, h2 + c, h3 + d, h4 + e, h5 + f, h6 + g, h7 + h
 
     result = clean(h0) + clean(h1) + clean(h2) + clean(h3) + clean(h4) + clean(h5) + clean(h6) + clean(h7)
 
