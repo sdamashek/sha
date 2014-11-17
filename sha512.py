@@ -109,7 +109,7 @@ def do_hash(m):
         for i in range(16, 80):
             s0 = ror(w[i - 15], 1) ^ ror(w[i - 15], 8) ^ (w[i - 15] >> 7)
             s1 = ror(w[i - 2], 19) ^ ror(w[i - 2], 61) ^ (w[i - 2] >> 6)
-            w[i] = mask(w[i - 16] + s0 + w[i - 7] + s1)
+            w[i] = domask(w[i - 16] + s0 + w[i - 7] + s1)
 
         a, b, c, d, e, f, g, h = h0, h1, h2, h3, h4, h5, h6, h7
 
