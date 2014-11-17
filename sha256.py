@@ -71,7 +71,7 @@ def do_hash(m):
         modlen = len(''.join(m)) % 512
 
     # Append length as 64-bit integer
-    binary_length = bin(initial_len)[2:].zfill(64)
+    binary_length = bin(initial_len)[2:].strip('L').zfill(64)
     block_length = [binary_length[i:i + 8] for i in range(0, len(binary_length), 8)]
     m.extend(block_length)
 
